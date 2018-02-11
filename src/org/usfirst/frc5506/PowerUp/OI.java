@@ -82,11 +82,11 @@ public class OI {
         openHand.whileHeld(new moveHand(false));//no whenReleased makes arm move to full extension
         closeHand.whileHeld(new moveHand(true));
         
-        retractArm.whileHeld(new moveArm(false, true));
-        retractArm.whenReleased(new moveArm(false, false));//adding a whenReleased statement
+        retractArm.whileHeld(new moveArm(false, false));
+        retractArm.whenReleased(new moveArm(false, true));//adding a whenReleased statement
         												   //allows arm to stop mid movement
-        extendArm.whileHeld(new moveArm(true, true));
-        extendArm.whenReleased(new moveArm(true, false));
+        extendArm.whileHeld(new moveArm(true, false));
+        extendArm.whenReleased(new moveArm(true, true));
         
         
     }
