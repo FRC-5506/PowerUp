@@ -53,6 +53,18 @@ public class Hand extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+    //Same basic pneumatic 
+    public void grip() {
+    	gripper.set(DoubleSolenoid.Value.kReverse);
+    }
+    
+    public void ungrip() {
+    	gripper.set(DoubleSolenoid.Value.kForward);
+    }
+    
+    public void stop() {
+    	gripper.set(DoubleSolenoid.Value.kOff);
+    }
 
 }
 
