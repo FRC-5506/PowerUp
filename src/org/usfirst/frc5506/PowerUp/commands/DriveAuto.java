@@ -49,6 +49,9 @@ public class DriveAuto extends Command {
     	else
     		forward = true;
     	
+    	aveDist = ( Robot.driveBase.getLeftRotation().getDistance() + Robot.driveBase.getRightRotation().getDistance() ) / 2;
+    	
+    	if(Math.abs(dist)>aveDist)
     	Robot.driveBase.driveAuto(forward);
     }
 
