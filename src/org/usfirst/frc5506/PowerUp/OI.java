@@ -76,8 +76,8 @@ public class OI {
         //make button objects -- bind a joystick's input to a code object
         Button openHand = new JoystickButton(joystick, 2); //B
         Button closeHand = new JoystickButton(joystick, 1); //A
-        Button retractArm = new JoystickButton(joystick, 3); //X
-        Button extendArm = new JoystickButton(joystick, 4); //Y
+        Button retractArm = new JoystickButton(joystick, 4); //X=3 -- But pneumatics team hooked up
+        Button extendArm = new JoystickButton(joystick, 3); //Y=4 -- the hoses backwards
         
         //use code object to execute a command
         openHand.whileHeld(new moveHand(false));//no whenReleased makes arm move to full extension

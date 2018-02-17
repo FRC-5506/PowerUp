@@ -67,7 +67,7 @@ public class Elbow extends Subsystem {
         	else
         	oneDvector = 0;//if a new value isn't taken, i.e. joystick is centered, the
         					//percentage becomes 0
-    	elbow.set(oneDvector);//Power TalonSRX at whatever joystick says
+    	elbow.set(0.6*oneDvector);//Power TalonSRX at whatever joystick says, 60% power
     }
     
     protected double oneDvector;//make this a variable for rotateArm method only

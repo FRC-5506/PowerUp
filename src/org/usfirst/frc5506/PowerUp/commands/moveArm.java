@@ -58,14 +58,10 @@ public class moveArm extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	if(/*!*/isTimedOut()) {
-    		return isTimedOut()/*moving*/;//if time is not out, say whether command is finished or not
-    						//check this part, try putting isFinished() as true, and then
-    						//try making whenReleased in OI false
-    							//if it works straight when whenReleased is false, eliminate
-    							//second parameter and make a private state as false
+    	if(!isTimedOut()) {
+    		return moving;//if time is not out, say whether command is finished or not
     	} else {
-    		return !moving/*isTimedOut()*/;//if time is out, say command is finished
+    		return isTimedOut();//if time is out, say command is finished
 }
     	}
 
