@@ -49,9 +49,6 @@ public class DriveAuto extends Command {
     	else
     		forward = true;
     	
-    	aveDist = ( Robot.driveBase.getLeftRotation().getDistance() + Robot.driveBase.getRightRotation().getDistance() ) / 2;
-    	
-    	if(Math.abs(dist)>aveDist)
     	Robot.driveBase.driveAuto(forward);
     }
 
@@ -59,7 +56,7 @@ public class DriveAuto extends Command {
     @Override
     protected boolean isFinished() {
     	aveDist = ( Robot.driveBase.getLeftRotation().getDistance() + Robot.driveBase.getRightRotation().getDistance() ) / 2;
-    	if(aveDist<dist)//if the distance that both wheeltrains moved is less than
+    	if(Math.abs(dist)>Math.abs(aveDist))//if the distance that both wheeltrains moved is less than
     		return false;//the distance needed to travel, keep going
     	else
     		return true;//if it's greater than dist, stop

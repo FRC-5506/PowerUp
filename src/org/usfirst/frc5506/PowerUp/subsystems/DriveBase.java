@@ -13,8 +13,6 @@ package org.usfirst.frc5506.PowerUp.subsystems;
 
 import org.usfirst.frc5506.PowerUp.Robot;
 import org.usfirst.frc5506.PowerUp.RobotMap;
-import org.usfirst.frc5506.PowerUp.commands.*;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -85,8 +83,7 @@ public class DriveBase extends Subsystem {
         if(Math.abs(turn)<.10)
         	turn = 0;
         
-        drive.arcadeDrive(-1*forward, turn);//for some reason something's backwards? but this fixes it
-        									//Trial error like nothing else.
+        drive.arcadeDrive(forward, turn);
     }
     
     public Encoder getLeftRotation() {
@@ -98,7 +95,7 @@ public class DriveBase extends Subsystem {
     }
 
     public void driveAuto(boolean forwards) {
-    	if(forwards==true)
+    	if(forwards)
     		direction = 0.5;
     	else
     		direction = -0.5;
@@ -106,12 +103,12 @@ public class DriveBase extends Subsystem {
     	difference = rightRevs.getDistance()-leftRevs.getDistance();//difference of distances
     																//wheels travelled
     	
-    	if(Math.abs(difference)>0.5)//if one side has gone farther than another
+    	if(Math.abs(difference)>1)//if one side has gone farther than another
     		correction = difference;//turn the robot the amount that it's off
     	else
     		correction = 0;
     	
-    	drive(direction, (correction/10));//play with this number -- imprecise
+    	drive(direction, (correction/20));//play with this number -- imprecise
     								//if it gets off by more than half an inch, turn at 5%
     }
     

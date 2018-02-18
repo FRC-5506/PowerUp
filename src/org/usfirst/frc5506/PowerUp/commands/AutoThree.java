@@ -11,7 +11,6 @@
 
 package org.usfirst.frc5506.PowerUp.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.usfirst.frc5506.PowerUp.Robot;
 
 /**
  *    There's actually no special methods or robotbuilder stuff for CommandGroup,
@@ -21,6 +20,13 @@ import org.usfirst.frc5506.PowerUp.Robot;
 public class AutoThree extends CommandGroup {
 	
 	public AutoThree(char letter, String gameData) {
-		
+		switch(letter) {
+		case 'a'://L == R for a
+			addSequential(new DriveAuto(4));
+			addSequential(new Turn(45));
+			addSequential(new DriveAuto(51.265242));
+			addSequential(new Turn(-45));
+			addSequential(new DriveAuto(83.75));
+		}
 	}
 }

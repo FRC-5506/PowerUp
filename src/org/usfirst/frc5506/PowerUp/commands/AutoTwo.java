@@ -11,7 +11,6 @@
 
 package org.usfirst.frc5506.PowerUp.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.usfirst.frc5506.PowerUp.Robot;
 
 /**
  *    There's actually no special methods or robotbuilder stuff for CommandGroup,

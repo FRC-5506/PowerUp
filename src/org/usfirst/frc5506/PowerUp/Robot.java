@@ -11,10 +11,7 @@
 
 package org.usfirst.frc5506.PowerUp;
 
-import com.ctre.phoenix.motorcontrol.can.*;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -141,7 +138,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
     	Scheduler.getInstance().run();
     	
-        forward = joystick.getY();
+        forward = -1*joystick.getY();
         turn = joystick.getX();
         elbowSpeed = joystick.getRawAxis(5);
         
