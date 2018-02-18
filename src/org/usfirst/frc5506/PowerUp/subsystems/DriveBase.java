@@ -83,7 +83,12 @@ public class DriveBase extends Subsystem {
         if(Math.abs(turn)<.10)
         	turn = 0;
         
-        drive.arcadeDrive(forward, turn);
+        if(Robot.driveMode==true)//if arcadeDrive is selected on smartdash
+        drive.arcadeDrive(forward, turn);//arcade drive
+        
+        else {//if tank drive selected
+        	drive.tankDrive(forward, turn);//tank drive
+        }
     }
     
     public Encoder getLeftRotation() {
@@ -94,7 +99,7 @@ public class DriveBase extends Subsystem {
     	return rightRevs;
     }
 
-    public void driveAuto(boolean forwards) {
+    public void driveLinear(boolean forwards) {
     	if(forwards)
     		direction = 0.5;
     	else

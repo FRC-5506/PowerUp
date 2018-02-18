@@ -20,6 +20,25 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoTwo extends CommandGroup {
 	
 	public AutoTwo(char letter, String gameData) {
-		
+		switch(letter) {
+		case 'a'://L==R for a
+			addSequential(new DriveLinear(4));
+			addSequential(new Turn(90));
+			addSequential(new DriveLinear(72));
+			addSequential(new Turn(-45));
+			addSequential(new DriveLinear(47.376154));
+			addSequential(new Turn(-45));
+			addSequential(new DriveLinear(84.75));
+			break;
+			
+		case 'b':
+			addSequential(new AutoTwo('a', "Hi"));
+			
+			if(gameData.charAt(0)=='R') {
+				addSequential(new AutoThree('b', "R"));
+			} else {
+				addSequential(new AutoThree('b', "L"));
+			}
+		}
 	}
 }

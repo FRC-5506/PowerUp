@@ -22,9 +22,31 @@ public class AutoOne extends CommandGroup {
 	public AutoOne(char letter, String gameData) {
 		switch(letter) {
 		case 'a':
-			addSequential(new DriveAuto(2));
+			addSequential(new DriveLinear(4));
+			addSequential(new Turn(-45));
+			addSequential(new DriveLinear(47.37615433949868));
+			addSequential(new Turn(45));
+			addSequential(new DriveLinear(84.75));
 		case 'b':
-		
+			addSequential(new AutoOne('a', "Yoohoo"));
+			
+			if(gameData.charAt(0)=='L') {
+				addSequential(new DriveLinear(85));
+				addSequential(new Turn(90));
+				addSequential(new DriveLinear(45));
+				addParallel(new Curl(30));
+				addSequential(new moveHand(false));
+			} else {
+				addSequential(new DriveLinear(153.75));
+				addSequential(new Turn(90));
+				addSequential(new DriveLinear(284));
+				addSequential(new Turn(90));
+				addSequential(new DriveLinear(68.75));
+				addSequential(new Turn(90));
+				addSequential(new DriveLinear(45));
+				addParallel(new Curl(30));
+				addSequential(new moveHand(false));
+			}
 		//case 'c':
 			//SOON
 		}

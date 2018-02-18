@@ -45,9 +45,9 @@ public class moveHand extends Command {
     @Override
     protected void execute() {
     	if(clasp==true)//move in or out, using one command, kinda cool eh --thank much NH
-    		Robot.hand.ungrip();
+    		Robot.hand.grip();
     	else
-    	    Robot.hand.grip();
+    	    Robot.hand.ungrip();
     }
 
     // Make this return true when this Command no longer needs to run execute()
