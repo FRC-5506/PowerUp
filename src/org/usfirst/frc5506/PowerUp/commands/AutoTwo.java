@@ -22,13 +22,13 @@ public class AutoTwo extends CommandGroup {
 	public AutoTwo(char letter, String gameData) {
 		switch(letter) {
 		case 'a'://L==R for a
-			addSequential(new DriveLinear(4));
+			//addSequential(new DriveLinear(4));
 			addSequential(new Turn(90));
-			addSequential(new DriveLinear(72));
+			//addSequential(new DriveLinear(72));
 			addSequential(new Turn(-45));
-			addSequential(new DriveLinear(47.376154));
+			//addSequential(new DriveLinear(47.376154));
 			addSequential(new Turn(-45));
-			addSequential(new DriveLinear(84.75));
+			//addSequential(new DriveLinear(84.75));
 			break;
 			
 		case 'b':

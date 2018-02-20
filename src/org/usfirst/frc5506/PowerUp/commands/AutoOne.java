@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoOne extends CommandGroup {
 	
 	public AutoOne(char letter, String gameData) {
-		switch(letter) {
+		/*switch(letter) {
 		case 'a':
 			addSequential(new DriveLinear(4));
 			addSequential(new Turn(-45));
@@ -49,6 +49,6 @@ public class AutoOne extends CommandGroup {
 			}
 		//case 'c':
 			//SOON
-		}
+		}*/
 	}
 }

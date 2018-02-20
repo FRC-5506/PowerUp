@@ -83,7 +83,7 @@ public class DriveBase extends Subsystem {
         if(Math.abs(turn)<.10)
         	turn = 0;
         
-        if(Robot.driveMode==true)//if arcadeDrive is selected on smartdash
+        if(Robot.driveMode)//if arcadeDrive is selected on smartdash
         drive.arcadeDrive(forward, turn);//arcade drive
         
         else {//if tank drive selected

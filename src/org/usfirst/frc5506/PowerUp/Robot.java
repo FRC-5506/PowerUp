@@ -40,6 +40,8 @@ public class Robot extends TimedRobot {
     SendableChooser<Boolean> arcadeDriveMode = new SendableChooser<>();
   //This allows an option for tank or arcade drive to be put on SmartDash
 
+    public static double elbowUp;
+    public static double elbowDown;
     public static boolean driveMode;
     public static double elbowSpeed;
     public static double forward;
@@ -90,7 +92,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Drive Mode", arcadeDriveMode);
         
         // Add commands to Autonomous Sendable Chooser
-        chooser.addDefault("Default -- #a", new AutoBoring());
+        chooser.addDefault("Default -- #a [10']", new AutoBoring());
         
         
         chooser.addObject("1a", new AutoOne('a', DriverStation.getInstance().getGameSpecificMessage()));
@@ -121,6 +123,8 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
+        
+        
     }
 
     @Override
@@ -167,9 +171,20 @@ public class Robot extends TimedRobot {
         System.out.println("Compressor connected: "+!comp.getCompressorNotConnectedFault());
         System.out.println("PCM Sticky Fault: "+comp.getCompressorNotConnectedStickyFault());*/
     	
-        forward = -1*joystick.getY();
-        turn = joystick.getX();
-        elbowSpeed = joystick.getRawAxis(5);
+        forward = -0.75*joystick.getY();//forward is always left y axis
+        
+        if(driveMode) {
+        	turn = 0.65*joystick.getX();
+        	elbowSpeed = joystick.getRawAxis(5);
+        } else {
+        	turn = -0.75*joystick.getRawAxis(5);//make sure this is scaled the same as forward (left side)
+        	elbowDown = joystick.getRawAxis(2);//left trigger
+        	elbowUp = joystick.getRawAxis(3);//right trigger
+        	
+        	elbowSpeed = Math.max(elbowDown, elbowUp);//figure out which one is being pushed, then use it as elbowSpeed
+        	if(elbowUp>elbowDown)//if going down,
+        		elbowSpeed *= -1;//make sure motor runs in reverse
+        }
         
         /**Testing Purposes: Find how values were working -- Remember to uncomment instantiation
          * c++;
@@ -179,8 +194,11 @@ public class Robot extends TimedRobot {
          * c=0;}
          */
         
+        RobotMap.leftRevs.get();
+        RobotMap.rightRevs.get();
    
-        SmartDashboard.putNumber("Encoder Counts", Robot.driveBase.leftRevs.get());
-        SmartDashboard.putNumber("Encoder Distance", Robot.driveBase.leftRevs.getDistance());
+        
+        SmartDashboard.putNumber("Right Encoder Counts", RobotMap.rightRevs.get());
+        SmartDashboard.putNumber("Left Encoder Counts", RobotMap.leftRevs.get());
     }
 }
