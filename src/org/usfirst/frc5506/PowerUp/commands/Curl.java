@@ -45,10 +45,10 @@ public class Curl extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	if(liftDegrees<Robot.elbow.armPos.getDistance())
-    		Robot.elbow.rotateArm(-0.6);
+    	if(liftDegrees<Robot.elbow.armPos.getDistance())//TODO: I switched these at SES
+    		Robot.elbow.rotateArm(0.6);
     	else
-    	Robot.elbow.rotateArm(0.6);//play with this number for speed
+    	Robot.elbow.rotateArm(-0.6);//play with this number for speed
     }
 
     // Make this return true when this Command no longer needs to run execute()

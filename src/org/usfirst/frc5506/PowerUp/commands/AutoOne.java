@@ -10,6 +10,7 @@
 
 
 package org.usfirst.frc5506.PowerUp.commands;
+//import org.usfirst.frc5506.PowerUp.Robot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -19,7 +20,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  **/
 public class AutoOne extends CommandGroup {
 	
+	protected double waitTime;
+
 	public AutoOne(char letter, String gameData) {
+		//this.waitTime = Robot.waitTime;//TODO: 1
+		
+		//setTimeout(waitTime);//TODO:1
+		
 		/*switch(letter) {
 		case 'a':
 			addSequential(new DriveLinear(4));

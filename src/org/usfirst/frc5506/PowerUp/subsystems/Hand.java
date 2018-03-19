@@ -47,7 +47,6 @@ public class Hand extends Subsystem {
     @Override
     public void periodic() {
         // Put code here to be run every loop
-
     }
 
     // Put methods for controlling this subsystem
