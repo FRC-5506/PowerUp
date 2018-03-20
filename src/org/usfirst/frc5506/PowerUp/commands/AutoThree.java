@@ -44,7 +44,7 @@ public class AutoThree extends CommandGroup {
 				//addSequential(new DriveLinear(45));
 				//At same time as above command is running, lower arm
 				addParallel(new Curl(30));//TODO: Find the right angle for this
-				addSequential(new moveHand(false));
+				addSequential(new moveHand(true));
 			} else {
 				//addSequential(new DriveLinear(153.75));
 				addSequential(new Turn(-90));
@@ -55,7 +55,7 @@ public class AutoThree extends CommandGroup {
 				//addSequential(new DriveLinear(45));
 				//Same time as above command, run the command below
 				addParallel(new Curl(30));//TODO: Find the right angle for this
-				addSequential(new moveHand(false));
+				addSequential(new moveHand(true));
 				break;
 			}
 		}

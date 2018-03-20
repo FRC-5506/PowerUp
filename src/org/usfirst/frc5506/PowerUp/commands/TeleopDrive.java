@@ -1,15 +1,13 @@
 package org.usfirst.frc5506.PowerUp.commands;
 
 import org.usfirst.frc5506.PowerUp.Robot;
-
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TeleopDrive extends Command {
 
-	protected double forward;
-	protected double turn;
+	private double forward;
+	private double turn;
 	
 	Joystick joystick;
 	private double elbowSpeed;
@@ -19,13 +17,13 @@ public class TeleopDrive extends Command {
 	
 	public TeleopDrive() {
 		requires(Robot.driveBase);
-		
-		joystick = Robot.oi.getjoystick();
 	}
 	
 	@Override
 	protected void initialize() {
 		driveMode = Robot.driveMode;
+
+		joystick = Robot.oi.getjoystick();
 	}
 	
 	@Override
@@ -33,9 +31,11 @@ public class TeleopDrive extends Command {
 		forward = -0.8*joystick.getY();//forward is always left y axis
         
         if(driveMode) {
+        	//System.out.println("arcade");
         	turn = 0.68*joystick.getX();
         	elbowSpeed = 0.75*joystick.getRawAxis(5);
         } else {
+        	//System.out.println("tank");
         	turn = -0.75*joystick.getRawAxis(5);//make sure this is scaled the same as forward (left side)
         	elbowDown = joystick.getRawAxis(2);//left trigger
         	elbowUp = joystick.getRawAxis(3);//right trigger

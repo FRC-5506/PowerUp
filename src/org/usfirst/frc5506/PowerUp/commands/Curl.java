@@ -45,7 +45,7 @@ public class Curl extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	if(liftDegrees<Robot.elbow.armPos.getDistance())//TODO: I switched these at SES
+    	if(liftDegrees<Robot.elbow.getArmPos().getDistance())//TODO: I switched these at SES
     		Robot.elbow.rotateArm(0.6);
     	else
     	Robot.elbow.rotateArm(-0.6);//play with this number for speed
@@ -54,7 +54,7 @@ public class Curl extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	if(liftDegrees+2/*change to 2 degrees encoder units*/>Robot.elbow.armPos.getDistance()&&liftDegrees-2/*encoder units*/<Robot.elbow.armPos.getDistance())//if distance needed to rotate
+    	if(liftDegrees+2/*change to 2 degrees encoder units*/>Robot.elbow.getArmPos().getDistance()&&liftDegrees-2/*encoder units*/<Robot.elbow.getArmPos().getDistance())//if distance needed to rotate
     		return true;                                 //is greater than distance rotated
     	else                                             //stop rotating
             return false;
@@ -63,7 +63,7 @@ public class Curl extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
-    	Robot.elbow.rotateArm(0);
+    	Robot.elbow.stop();
     }
 
     // Called when another command which requires one or more of the same
