@@ -68,7 +68,6 @@ public class RobotMap {
         rightSlave.follow(right);
         
         drive = new DifferentialDrive(left, right);
-        //drive.setSafetyEnabled(false);
         
         elbow = new WPI_TalonSRX(1);
         elbow.setInverted(true);
@@ -97,7 +96,7 @@ public class RobotMap {
         rearLS = new DigitalInput(4);
         
         LiveWindow.addSensor("Arm", "Position", armPos);
-        armPos.setDistancePerPulse(1);
+        armPos.setDistancePerPulse(0.25);
         //armPos.setDistancePerPulse((6*Math.PI)/1440);
         //armPos.setPIDSourceParameter(PIDSourceParameter.kRate);//I guess we need an import, don't know it thoug
         

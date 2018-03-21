@@ -22,7 +22,6 @@ public class TeleopDrive extends Command {
 	@Override
 	protected void initialize() {
 		driveMode = Robot.driveMode;
-
 		joystick = Robot.oi.getjoystick();
 	}
 	
@@ -31,11 +30,9 @@ public class TeleopDrive extends Command {
 		forward = -0.8*joystick.getY();//forward is always left y axis
         
         if(driveMode) {
-        	//System.out.println("arcade");
         	turn = 0.68*joystick.getX();
         	elbowSpeed = 0.75*joystick.getRawAxis(5);
         } else {
-        	//System.out.println("tank");
         	turn = -0.75*joystick.getRawAxis(5);//make sure this is scaled the same as forward (left side)
         	elbowDown = joystick.getRawAxis(2);//left trigger
         	elbowUp = joystick.getRawAxis(3);//right trigger
@@ -45,6 +42,13 @@ public class TeleopDrive extends Command {
         		elbowSpeed *= -1;//make sure motor runs in reverse
         }
         
+        //TODO: Check that elbow limit switches are aligned
+        if( (Robot.elbow.getForeLS().get()) && (elbowSpeed<0) )//front limit switch triggered, and trying to push down
+    		elbowSpeed = 0;								//stop the motor!
+    	
+    	if( (Robot.elbow.getRearLS().get()) && (elbowSpeed>0) )//rear limit switch triggered, and trying to push up
+    		elbowSpeed = 0;							 // then stop the motor!
+        
         Robot.driveBase.drive(forward, turn);
     	Robot.elbow.rotateArm(elbowSpeed);
 	}
@@ -53,5 +57,4 @@ public class TeleopDrive extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
-
 }

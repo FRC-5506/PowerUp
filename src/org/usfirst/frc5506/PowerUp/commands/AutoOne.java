@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  **/
 public class AutoOne extends CommandGroup {
 	
-	protected double waitTime;
+	//private double waitTime;
 
 	public AutoOne(char letter, String gameData) {
 		//this.waitTime = Robot.waitTime;//TODO: 1
