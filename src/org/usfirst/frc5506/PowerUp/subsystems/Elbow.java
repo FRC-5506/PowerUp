@@ -12,10 +12,7 @@
 package org.usfirst.frc5506.PowerUp.subsystems;
 
 import org.usfirst.frc5506.PowerUp.RobotMap;
-import org.usfirst.frc5506.PowerUp.commands.TeleopArm;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;

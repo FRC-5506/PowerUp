@@ -67,7 +67,7 @@ public class ManeuverableDrive extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	//return (distanceTravelled == pathDistance);//if we've gone as far as the path, we're done -- but this has no tolerance
+    	//return (distanceTravelled >= pathDistance);//if we've gone as far as the path, we're done
     	return (distanceTravelled<=pathDistance+2&&distanceTravelled>=pathDistance-2);//4" tolerance
     }
 
@@ -91,5 +91,5 @@ public class ManeuverableDrive extends Command {
     	return -(a*b*x/Math.sqrt(r*r-b*x*x));
     }
 
-    protected double f, g, r, a, b, x, pathDistance, distanceTravelled, turn, rawTurn, maxTurn;
+    private double f, g, r, a, b, x, pathDistance, distanceTravelled, turn, rawTurn, maxTurn;
 }*/

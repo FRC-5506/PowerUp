@@ -11,8 +11,6 @@
 
 package org.usfirst.frc5506.PowerUp;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -165,9 +163,8 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         
     	//reset all encoders
-    	Robot.driveBase.leftRevs.reset();
-    	Robot.driveBase.rightRevs.reset();
-    	//Robot.arm.armRevs.reset();//TODO: encoder armPos
+    	Robot.driveBase.resetEncoders();
+    	//Robot.arm.armRevs.reset();
     	
     	driveMode = arcadeDriveMode.getSelected();
     	

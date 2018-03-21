@@ -38,7 +38,7 @@ public class Turn extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		if(Robot.driveBase.leftRevs.getDistance() >= distanceAngle)
+		if(Robot.driveBase.getLeftRotation().getDistance() >= distanceAngle)
 			return true;
 		else
 			return false;
