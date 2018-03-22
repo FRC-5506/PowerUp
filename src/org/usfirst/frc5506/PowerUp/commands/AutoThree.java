@@ -11,7 +11,7 @@
 
 package org.usfirst.frc5506.PowerUp.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-//import org.usfirst.frc5506.PowerUp.*;
+import org.usfirst.frc5506.PowerUp.*;
 
 /**
  *    There's actually no special methods or robotbuilder stuff for CommandGroup,
@@ -20,41 +20,41 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  **/
 public class AutoThree extends CommandGroup {
 	
-	//private double waitTime;//TODO: 1
+	private double waitTime;
 	
 	public AutoThree(char letter, String gameData) {
-		//this.waitTime = Robot.waitTime;
-		//setTimeout(waitTime);//TODO: 1
+		this.waitTime = Robot.waitTime;
+		setTimeout(waitTime);
 		
 		switch(letter) {
 		case 'a'://L == R for a
-			//addSequential(new DriveLinear(4));
-			addSequential(new Turn(45));
-			//addSequential(new DriveLinear(47.376154));
-			addSequential(new Turn(-45));
-			//addSequential(new DriveLinear(84.75));
+			addSequential(new DriveLinear(4, false));
+			addSequential(new Turn(45, false));
+			addSequential(new DriveLinear(47.376154, false));
+			addSequential(new Turn(-45, false));
+			addSequential(new DriveLinear(84.75, false));
 			break;
 			
 		case 'b':
 			addSequential(new AutoThree('a', "R"));
 			
 			if(gameData.charAt(0)=='R') {
-				//addSequential(new DriveLinear(85));
-				addSequential(new Turn(-90));
-				//addSequential(new DriveLinear(45));
+				addSequential(new DriveLinear(85, false));
+				addSequential(new Turn(-90, false));
+				addSequential(new DriveLinear(45, false));
 				//At same time as above command is running, lower arm
-				addParallel(new Curl(30));//TODO: Find the right angle for this
+				addParallel(new Curl(30, false));
 				addSequential(new MoveHand(true));
 			} else {
-				//addSequential(new DriveLinear(153.75));
-				addSequential(new Turn(-90));
-				//addSequential(new DriveLinear(284));
-				addSequential(new Turn(-90));
-				//addSequential(new DriveLinear(68.75));
-				addSequential(new Turn(-90));
-				//addSequential(new DriveLinear(45));
+				addSequential(new DriveLinear(153.75, false));
+				addSequential(new Turn(-90, false));
+				addSequential(new DriveLinear(284, false));
+				addSequential(new Turn(-90, false));
+				addSequential(new DriveLinear(68.75, false));
+				addSequential(new Turn(-90, false));
+				addSequential(new DriveLinear(45, false));
 				//Same time as above command, run the command below
-				addParallel(new Curl(30));//TODO: Find the right angle for this
+				addParallel(new Curl(30, false));
 				addSequential(new MoveHand(true));
 				break;
 			}

@@ -1,6 +1,8 @@
 package org.usfirst.frc5506.PowerUp.commands;
 
 import org.usfirst.frc5506.PowerUp.Robot;
+
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -41,6 +43,9 @@ public class TeleopDrive extends Command {
         	if(elbowUp>elbowDown)//if going down,
         		elbowSpeed *= -1;//make sure motor runs in reverse
         }
+        //find which value is highest, and set rumble to that value, use absolute value so method is happy
+        Robot.oi.getjoystick().setRumble(RumbleType.kLeftRumble, (float) Math.max(Math.abs(forward), Math.abs(turn)));
+        Robot.oi.getjoystick().setRumble(RumbleType.kRightRumble, (float) Math.max(Math.abs(forward), Math.abs(turn)));
         
         //TODO: Check that elbow limit switches are aligned
         if( (Robot.elbow.getForeLS().get()) && (elbowSpeed<0) )//front limit switch triggered, and trying to push down

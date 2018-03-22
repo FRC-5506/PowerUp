@@ -11,7 +11,7 @@
 
 package org.usfirst.frc5506.PowerUp.commands;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-//import org.usfirst.frc5506.PowerUp.*;
+import org.usfirst.frc5506.PowerUp.*;
 
 /**
  *    There's actually no special methods or robotbuilder stuff for CommandGroup,
@@ -20,21 +20,21 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  **/
 public class AutoTwo extends CommandGroup {
 	
-	//private double waitTime;//TODO: 1
+	private double waitTime;
 	
 	public AutoTwo(char letter, String gameData) {
-		//this.waitTime = Robot.waitTime;
-		//setTimeout(waitTime);//TODO: 1
+		this.waitTime = Robot.waitTime;
+		setTimeout(waitTime);
 		
 		switch(letter) {
 		case 'a'://L==R for a
-			//addSequential(new DriveLinear(4));
-			addSequential(new Turn(90));
-			//addSequential(new DriveLinear(72));
-			addSequential(new Turn(-45));
-			//addSequential(new DriveLinear(47.376154));
-			addSequential(new Turn(-45));
-			//addSequential(new DriveLinear(84.75));
+			addSequential(new DriveLinear(4, false));
+			addSequential(new Turn(90, false));
+			addSequential(new DriveLinear(72, false));
+			addSequential(new Turn(-45, false));
+			addSequential(new DriveLinear(47.376154, false));
+			addSequential(new Turn(-45, false));
+			addSequential(new DriveLinear(84.75, false));
 			break;
 			
 		case 'b':

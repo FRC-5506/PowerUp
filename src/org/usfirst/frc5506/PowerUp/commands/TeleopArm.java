@@ -1,12 +1,12 @@
 package org.usfirst.frc5506.PowerUp.commands;
-
+/*
 import org.usfirst.frc5506.PowerUp.Robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
-public abstract class TeleopArm extends Command {
+public class TeleopArm extends Command {
 	
-	/*private double elbowDown;
+	private double elbowDown;
 	private double elbowUp;
 	private double elbowSpeed;
 	private boolean driveMode;
@@ -49,5 +49,6 @@ public abstract class TeleopArm extends Command {
 	protected boolean isFinished() {
 		return false;
 	}
-*/
+
 }
+*/

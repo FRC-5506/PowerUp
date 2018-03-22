@@ -10,9 +10,10 @@
 
 
 package org.usfirst.frc5506.PowerUp.commands;
+/*
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc5506.PowerUp.Robot;
-/*import org.apache.commons.math3.analysis.UnivariateFunction;
+import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.differentiation.UnivariateDifferentiableFunction;
 import org.apache.commons.math3.analysis.integration.*;*/
 
@@ -60,15 +61,15 @@ public class ManeuverableDrive extends Command {
     	turn = rawTurn/maxTurn;//scaled from 0 - 1
     	
     	Robot.driveBase.drive(0.7, turn);//go go powerUP Robot
-    	distanceTravelled = (Robot.driveBase.leftRevs.getDistance()+Robot.driveBase.rightRevs.getDistance())/2;//how far we've gone
+    	distanceTravelled = (Robot.driveBase.getLeftRotation().getDistance()+Robot.driveBase.getRightRotation().getDistance())/2;//how far we've gone
     }
 
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	//return (distanceTravelled >= pathDistance);//if we've gone as far as the path, we're done
-    	return (distanceTravelled<=pathDistance+2&&distanceTravelled>=pathDistance-2);//4" tolerance
+    	return (distanceTravelled >= pathDistance);//if we've gone as far as the path, we're done
+    	//return (distanceTravelled<=pathDistance+2&&distanceTravelled>=pathDistance-2);//4" tolerance
     }
 
     // Called once after isFinished returns true

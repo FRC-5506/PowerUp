@@ -10,7 +10,7 @@
 
 
 package org.usfirst.frc5506.PowerUp.commands;
-//import org.usfirst.frc5506.PowerUp.Robot;
+import org.usfirst.frc5506.PowerUp.Robot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -20,42 +20,42 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  **/
 public class AutoOne extends CommandGroup {
 	
-	//private double waitTime;
+	private double waitTime;
 
 	public AutoOne(char letter, String gameData) {
-		//this.waitTime = Robot.waitTime;//TODO: 1
+		this.waitTime = Robot.waitTime;
 		
-		//setTimeout(waitTime);//TODO:1
+		setTimeout(waitTime);
 		
-		/*switch(letter) {
+		switch(letter) {
 		case 'a':
-			addSequential(new DriveLinear(4));
-			addSequential(new Turn(-45));
-			addSequential(new DriveLinear(47.37615433949868));
-			addSequential(new Turn(45));
-			addSequential(new DriveLinear(84.75));
+			addSequential(new DriveLinear(4, false));
+			addSequential(new Turn(-45, false));
+			addSequential(new DriveLinear(47.37615433949868, false));
+			addSequential(new Turn(45, false));
+			addSequential(new DriveLinear(84.75, false));
 		case 'b':
 			addSequential(new AutoOne('a', "Yoohoo"));
 			
 			if(gameData.charAt(0)=='L') {
-				addSequential(new DriveLinear(85));
-				addSequential(new Turn(90));
-				addSequential(new DriveLinear(45));
-				addParallel(new Curl(30));
-				addSequential(new moveHand(false));
+				addSequential(new DriveLinear(85, false));
+				addSequential(new Turn(90, false));
+				addSequential(new DriveLinear(45, false));
+				addParallel(new Curl(30, false));
+				addSequential(new MoveHand(false));
 			} else {
-				addSequential(new DriveLinear(153.75));
-				addSequential(new Turn(90));
-				addSequential(new DriveLinear(284));
-				addSequential(new Turn(90));
-				addSequential(new DriveLinear(68.75));
-				addSequential(new Turn(90));
-				addSequential(new DriveLinear(45));
-				addParallel(new Curl(30));
-				addSequential(new moveHand(false));
+				addSequential(new DriveLinear(153.75, false));
+				addSequential(new Turn(90, false));
+				addSequential(new DriveLinear(284, false));
+				addSequential(new Turn(90, false));
+				addSequential(new DriveLinear(68.75, false));
+				addSequential(new Turn(90, false));
+				addSequential(new DriveLinear(45, false));
+				addParallel(new Curl(30, false));
+				addSequential(new MoveHand(false));
 			}
 		//case 'c':
 			//SOON
-		}*/
+		}
 	}
 }

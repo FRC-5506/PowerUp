@@ -38,10 +38,10 @@ public class Robot extends TimedRobot {
     
     SendableChooser<Boolean> arcadeDriveMode = new SendableChooser<>();
     
-    //SendableChooser<Double> waitTimeChooser = new SendableChooser<>();//TODO: 1
+    SendableChooser<Double> waitTimeChooser = new SendableChooser<>();
   //This allows an option for tank or arcade drive to be put on SmartDash
 
-    public static double waitTime;//TODO: 1
+    public static double waitTime;
     public static double elbowUp;
     public static double elbowDown;
     public static boolean driveMode;
@@ -95,17 +95,17 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Drive Mode", arcadeDriveMode);
         
         
-        //waitTimeChooser.addDefault("0", 0);TODO: 1
-        //waitTimeChooser.addObject("1", 1);
-        //waitTimeChooser.addObject("2", 2);
+        waitTimeChooser.addDefault("0", 0.0);
+        waitTimeChooser.addObject("1", 1.0);
+        waitTimeChooser.addObject("2", 2.0);
         
-        //SmartDashboard.putData("Wait Time", waitTimeChooser);//TODO:1
+        SmartDashboard.putData("Wait Time", waitTimeChooser);
         
         // Add commands to Autonomous Sendable Chooser
         chooser.addDefault("Default -- #a [10']", new AutoBoring());
         
         
-        chooser.addObject("1a", new AutoOne('a', DriverStation.getInstance().getGameSpecificMessage()/*, waitTime TODO:1*/));
+        chooser.addObject("1a", new AutoOne('a', DriverStation.getInstance().getGameSpecificMessage()));
         chooser.addObject("1b", new AutoOne('b', DriverStation.getInstance().getGameSpecificMessage()));
         //chooser.addObject("1c", new AutoOne(c, /*String LRR*/));
         
@@ -134,12 +134,14 @@ public class Robot extends TimedRobot {
     public void disabledPeriodic() {
         Scheduler.getInstance().run();
         
+        SmartDashboard.putNumber("Left Rotation Ticks", Robot.driveBase.getLeftRotation().get());
+        SmartDashboard.putNumber("Right Rotation Ticks", Robot.driveBase.getRightRotation().get());
         //showPDPStats();
     }
 
     @Override
     public void autonomousInit() {
-    	//waitTime = waitTimeChooser.getSelected();//TODO:1
+    	waitTime = waitTimeChooser.getSelected();
         autonomousCommand = chooser.getSelected();
         //DriveBase.gyro.reset();
         // schedule the autonomous command (example)
@@ -176,6 +178,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
     	Scheduler.getInstance().run();
+    	
     	
     	/*Compressor comp = new Compressor(0);
         comp.clearAllPCMStickyFaults();

@@ -38,12 +38,6 @@ public class DriveBase extends Subsystem {
     
     private final Encoder leftRevs = RobotMap.leftRevs;
     private final Encoder rightRevs = RobotMap.rightRevs;
-    
-    /*private final WPI_VictorSPX left = RobotMap.left;
-    private final WPI_VictorSPX right = RobotMap.right;
-    private final WPI_VictorSPX leftSlave = RobotMap.leftSlave;
-    private final WPI_VictorSPX rightSlave = RobotMap.rightSlave;*/
-    
     private final DifferentialDrive drive = RobotMap.drive;
     
     
@@ -68,19 +62,19 @@ public class DriveBase extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public void drive(double forward, double turn) {
+    public void drive(double forwardLeft, double turnRight) {
         //deadband
-        if(Math.abs(forward) < .10)
-        forward = 0;
+        if(Math.abs(forwardLeft) < .10)
+        forwardLeft = 0;
         
-        if(Math.abs(turn)<.10)
-        	turn = 0;
+        if(Math.abs(turnRight)<.10)
+        	turnRight = 0;
         
         if(Robot.driveMode)//if arcadeDrive is selected on smartdash
-        drive.arcadeDrive(forward, turn);//arcade drive
+        drive.arcadeDrive(forwardLeft, turnRight);//arcade drive
         
         else {//if tank drive selected
-        	drive.tankDrive(forward, turn);//tank drive
+        	drive.tankDrive(forwardLeft, turnRight);//tank drive
         }
     }
     
@@ -115,7 +109,15 @@ public class DriveBase extends Subsystem {
     								//if it gets off by more than half an inch, turn at 5%
     }
     
-    protected double direction;
-    protected double correction;
-    protected double difference;
+    public void stop() {
+    	drive.stopMotor();//stop DifferentialDrive object
+    }
+    
+    public DifferentialDrive getMotors() {
+    	return drive;
+    }
+    
+    private double direction;
+    private double correction;
+    private double difference;
 }
