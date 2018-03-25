@@ -18,44 +18,54 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *    You just add in a bunch of addSequential()s and addParallel()s for your routine
  *    until the routine is finished. Nice, right? -DM
  **/
-public class AutoOne extends CommandGroup {
+/*public class AutoOne extends CommandGroup {
 	
 	private double waitTime;
-
-	public AutoOne(char letter, String gameData) {
+	
+	public AutoOne(char endPosition) {
 		this.waitTime = Robot.waitTime;
 		
 		setTimeout(waitTime);
 		
-		switch(letter) {
-		case 'a':
-			addSequential(new DriveLinear(4, false));
-			addSequential(new Turn(-45, false));
-			addSequential(new DriveLinear(47.37615433949868, false));
-			addSequential(new Turn(45, false));
-			addSequential(new DriveLinear(84.75, false));
-		case 'b':
-			addSequential(new AutoOne('a', "Yoohoo"));
-			
-			if(gameData.charAt(0)=='L') {
-				addSequential(new DriveLinear(85, false));
-				addSequential(new Turn(90, false));
-				addSequential(new DriveLinear(45, false));
-				addParallel(new Curl(30, false));
-				addSequential(new MoveHand(false));
-			} else {
-				addSequential(new DriveLinear(153.75, false));
-				addSequential(new Turn(90, false));
-				addSequential(new DriveLinear(284, false));
-				addSequential(new Turn(90, false));
-				addSequential(new DriveLinear(68.75, false));
-				addSequential(new Turn(90, false));
-				addSequential(new DriveLinear(45, false));
-				addParallel(new Curl(30, false));
-				addSequential(new MoveHand(false));
+		String gameData = Robot.gameData;
+		if(gameData!=null) {//if gamedata exists, do auto, if not then its fine, this makes robot code load
+			switch(endPosition) {
+			case 'a':
+				addSequential(new DriveLinear(4, false));
+				addSequential(new Turn(-45, false));
+				addSequential(new DriveLinear(47.37615433949868, false));
+				addSequential(new Turn(45, false));
+				addSequential(new DriveLinear(84.75, false));
+			case 'b':
+				//WPILib doesn't like recursive calls so just copy-paste the call
+				//addSequential(new AutoOne('a', "Yoohoo"));
+				addSequential(new DriveLinear(4, false));
+				addSequential(new Turn(-45, false));
+				addSequential(new DriveLinear(47.37615433949868, false));
+				addSequential(new Turn(45, false));
+				addSequential(new DriveLinear(84.75, false));
+				//end AutoOne(a)
+				
+				if(gameData.charAt(0)=='L') {
+					addSequential(new DriveLinear(85, false));
+					addSequential(new Turn(90, false));
+					addSequential(new DriveLinear(45, false));
+					addParallel(new Curl(30, false));
+					addSequential(new MoveHand(false));
+				} else {
+					addSequential(new DriveLinear(153.75, false));
+					addSequential(new Turn(90, false));
+					addSequential(new DriveLinear(284, false));
+					addSequential(new Turn(90, false));
+					addSequential(new DriveLinear(68.75, false));
+					addSequential(new Turn(90, false));
+					addSequential(new DriveLinear(45, false));
+					addParallel(new Curl(30, false));
+					addSequential(new MoveHand(false));
+				}
+			//case 'c':
+				//SOON
 			}
-		//case 'c':
-			//SOON
 		}
 	}
-}
+}*/

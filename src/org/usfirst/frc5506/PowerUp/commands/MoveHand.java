@@ -53,23 +53,26 @@ public class MoveHand extends Command {
     	} else {
     		Robot.hand.ungrip();
     	}
+    	setTimeout(0.1);//this command is a toggle, so we can just run it for a second and then 
+    	 			  //the solenoid moves to position and shuts off and its fine.
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	return true;
+    	return isTimedOut();
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+    	Robot.hand.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-    	Robot.hand.stop();//stop when whileHeld interrupts the command when button is lifted
+    	//Robot.hand.stop();//stop when whileHeld interrupts the command when button is lifted
     }
 }

@@ -18,46 +18,55 @@ import org.usfirst.frc5506.PowerUp.*;
  *    You just add in a bunch of addSequential()s and addParallel()s for your routine
  *    until the routine is finished. Nice, right? -DM
  **/
-public class AutoThree extends CommandGroup {
+/*public class AutoThree extends CommandGroup {
 	
 	private double waitTime;
 	
-	public AutoThree(char letter, String gameData) {
+	public AutoThree(char letter) {
 		this.waitTime = Robot.waitTime;
 		setTimeout(waitTime);
 		
-		switch(letter) {
-		case 'a'://L == R for a
-			addSequential(new DriveLinear(4, false));
-			addSequential(new Turn(45, false));
-			addSequential(new DriveLinear(47.376154, false));
-			addSequential(new Turn(-45, false));
-			addSequential(new DriveLinear(84.75, false));
-			break;
-			
-		case 'b':
-			addSequential(new AutoThree('a', "R"));
-			
-			if(gameData.charAt(0)=='R') {
-				addSequential(new DriveLinear(85, false));
-				addSequential(new Turn(-90, false));
-				addSequential(new DriveLinear(45, false));
-				//At same time as above command is running, lower arm
-				addParallel(new Curl(30, false));
-				addSequential(new MoveHand(true));
-			} else {
-				addSequential(new DriveLinear(153.75, false));
-				addSequential(new Turn(-90, false));
-				addSequential(new DriveLinear(284, false));
-				addSequential(new Turn(-90, false));
-				addSequential(new DriveLinear(68.75, false));
-				addSequential(new Turn(-90, false));
-				addSequential(new DriveLinear(45, false));
-				//Same time as above command, run the command below
-				addParallel(new Curl(30, false));
-				addSequential(new MoveHand(true));
+		String gameData = Robot.gameData;
+		if(gameData!=null) {//if gameData exists, do auto
+			switch(letter) {
+			case 'a'://L == R for a
+				addSequential(new DriveLinear(4, false));
+				addSequential(new Turn(45, false));
+				addSequential(new DriveLinear(47.376154, false));
+				addSequential(new Turn(-45, false));
+				addSequential(new DriveLinear(84.75, false));
 				break;
+				
+			case 'b':
+				//addSequential(new AutoThree('a', "R"));
+				addSequential(new DriveLinear(4, false));
+				addSequential(new Turn(45, false));
+				addSequential(new DriveLinear(47.376154, false));
+				addSequential(new Turn(-45, false));
+				addSequential(new DriveLinear(84.75, false));
+				//end AutoThree(a)
+				
+				if(gameData.charAt(0)=='R') {
+					addSequential(new DriveLinear(85, false));
+					addSequential(new Turn(-90, false));
+					addSequential(new DriveLinear(45, false));
+					//At same time as above command is running, lower arm
+					addParallel(new Curl(30, false));
+					addSequential(new MoveHand(true));
+				} else {
+					addSequential(new DriveLinear(153.75, false));
+					addSequential(new Turn(-90, false));
+					addSequential(new DriveLinear(284, false));
+					addSequential(new Turn(-90, false));
+					addSequential(new DriveLinear(68.75, false));
+					addSequential(new Turn(-90, false));
+					addSequential(new DriveLinear(45, false));
+					//Same time as above command, run the command below
+					addParallel(new Curl(30, false));
+					addSequential(new MoveHand(true));
+					break;
+				}
 			}
 		}
 	}
-}
+}*/

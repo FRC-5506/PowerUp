@@ -56,19 +56,20 @@ public class MoveArm extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	return true;
+    	return Robot.armMoving;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-    	//Robot.arm.stop();
+    	Robot.arm.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-    	Robot.arm.stop();//stop when whileHeld cancels the command, it interrupts it when it lets go
+    	Robot.arm.stop();//stop first command when the second command 
+    					 //comes in with moving=false
     }
 }

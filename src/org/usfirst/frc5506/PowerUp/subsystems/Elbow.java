@@ -59,14 +59,13 @@ public class Elbow extends Subsystem {
     // here. Call these from Commands.
     
     public void rotateArm(double joyAngle) {
-    	//this.elbowSpeed = joyAngle;
-    	
     	if(!(Math.abs(joyAngle)<.10))//if joystick is in center, don't get a new value
         	oneDvector = joyAngle;//get a new value
         	else
         	oneDvector = 0;//if a new value isn't taken, i.e. joystick is centered, the
         					//percentage becomes 0
-    	elbow.set(0.6*oneDvector);//Power TalonSRX at whatever joystick says, 60% power
+    	
+    	elbow.set(oneDvector);//Power TalonSRX at whatever joystick says, 60% power
     }
     
     public DigitalInput getForeLS() {
@@ -85,6 +84,6 @@ public class Elbow extends Subsystem {
 		return armPos;
 	}
 
-	private double oneDvector;//make this a variable for rotateArm method only
+	private double oneDvector;//make this a variable for rotateArm method only (well really this class only)
 }
 

@@ -60,7 +60,7 @@ public class ManeuverableDrive extends Command {
     	rawTurn = derivValue(x);//y value of derivative from equation
     	turn = rawTurn/maxTurn;//scaled from 0 - 1
     	
-    	Robot.driveBase.drive(0.7, turn);//go go powerUP Robot
+    	Robot.driveBase.getMotors().arcadeDrive(0.7, turn);//go go powerUP Robot
     	distanceTravelled = (Robot.driveBase.getLeftRotation().getDistance()+Robot.driveBase.getRightRotation().getDistance())/2;//how far we've gone
     }
 

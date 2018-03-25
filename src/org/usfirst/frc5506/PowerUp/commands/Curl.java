@@ -53,13 +53,13 @@ public class Curl extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        //TODO: limit switches are here in auto
-    	elbowSpeed = 0.3;
+        //limit switches are here in auto
+    	elbowSpeed = (liftDegrees/Math.abs(liftDegrees))*0.3;//get the sign of liftDegrees, find out which way you're going, then move at 30% power
     	
-        if( (Robot.elbow.getForeLS().get()) && (elbowSpeed<0) )//front limit switch triggered, and trying to push down
+        if( !(Robot.elbow.getForeLS().get()) && (elbowSpeed>0) )//front limit switch triggered, and trying to push down
     		elbowSpeed = 0;								//stop the motor!
     	
-    	if( (Robot.elbow.getRearLS().get()) && (elbowSpeed>0) )//rear limit switch triggered, and trying to push up
+    	if( !(Robot.elbow.getRearLS().get()) && (elbowSpeed<0) )//rear limit switch triggered, and trying to push up
     		elbowSpeed = 0;							 // then stop the motor!
     	
     	if(liftDegrees<Robot.elbow.getArmPos().getDistance()) {
@@ -67,7 +67,7 @@ public class Curl extends Command {
     		if(timed)
     			setTimeout(time);
     	} else {
-    		Robot.elbow.rotateArm(-elbowSpeed);//play with this number for speed
+    		Robot.elbow.rotateArm(elbowSpeed);//play with this number for speed
     		if(timed)
     			setTimeout(time);
     	}
@@ -92,6 +92,8 @@ public class Curl extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+    	Robot.arm.stop();//stop first command when the second command 
+    					 //comes in with moving=false
     }
     
     private double liftDegrees;

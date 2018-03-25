@@ -6,7 +6,6 @@ public class AutoBoring extends CommandGroup {
 	public AutoBoring()
 	{
 		//just drive forward bang bang
-		addSequential(new DriveLinear(120, false));
+		addSequential(new DriveLinear(1000, '2'));//5 seconds
 	}
 }
-
