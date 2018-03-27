@@ -94,12 +94,7 @@ public class Robot extends TimedRobot {
         arcadeDriveMode.addObject("Tank Drive", new Boolean(false));
         //add the chooser to smartdashboard
         SmartDashboard.putData("Drive Mode", arcadeDriveMode);
-        
-        
-        /*waitTimeChooser.addDefault("0", 0.0);
-        waitTimeChooser.addObject("1", 1.0);
-        waitTimeChooser.addObject("2", 2.0);*/
-        
+
         waitTime = 0;
         SmartDashboard.putNumber("Wait Time", waitTime);
         
@@ -140,11 +135,10 @@ public class Robot extends TimedRobot {
         //SmartDashboard.putNumber("Left Rotation Ticks", Robot.driveBase.getLeftRotation().get());
         //SmartDashboard.putNumber("Right Rotation Ticks", Robot.driveBase.getRightRotation().get());
         
-        Robot.driveBase.showPDPStats();
-        
         /*SmartDashboard.putBoolean("ForeLS", elbow.getForeLS().get());
         SmartDashboard.putBoolean("RearLS", elbow.getRearLS().get());*/
         
+        //No rumble when disabled -- necessary because rumble is based off joystick input, not motor output
         Robot.oi.getjoystick().setRumble(RumbleType.kLeftRumble, 0);
         Robot.oi.getjoystick().setRumble(RumbleType.kRightRumble, 0);
         
@@ -157,7 +151,6 @@ public class Robot extends TimedRobot {
     	waitTime = SmartDashboard.getNumber("Wait Time", 0);//TODO: Test waitTime
         autonomousCommand = chooser.getSelected();
         gameData = DriverStation.getInstance().getGameSpecificMessage();//search once more when auto starts
-        //DriveBase.gyro.reset();
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -185,7 +178,7 @@ public class Robot extends TimedRobot {
     	Robot.driveBase.resetEncoders();
     	//Robot.arm.armRevs.reset();
     	
-    	driveMode = arcadeDriveMode.getSelected();
+    	driveMode = /*arcadeDriveMode.getSelected();*/true;//force arcade
     	
     }
 
@@ -196,13 +189,12 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
     	Scheduler.getInstance().run();
     	
-    	
     	/*Compressor comp = new Compressor(0);
     	 * 
         comp.clearAllPCMStickyFaults();
         System.out.println("Compressor connected: "+!comp.getCompressorNotConnectedFault());
         System.out.println("PCM Sticky Fault: "+comp.getCompressorNotConnectedStickyFault());*/
     	
-    	Robot.driveBase.showPDPStats();
+    	//Robot.driveBase.showPDPStats();
     }
 }

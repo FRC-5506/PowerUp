@@ -8,9 +8,10 @@ import org.usfirst.frc5506.PowerUp.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
+ * Pivot in place by running one side forwards, and one side backwards
+ * 
+ * @param angle in degrees to turn, and true if basing turn on time
  * @author Dan McKeon
- * Sorry Y'all for the weird format, This was handcrafted
- *	No robot builder involved
  */
 public class Turn extends Command {
 	private static final double MAX_TURN_TIME = 3.5;//TODO: Test how long it take to turn 90deg

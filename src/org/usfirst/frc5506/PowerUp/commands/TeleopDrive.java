@@ -47,7 +47,7 @@ public class TeleopDrive extends Command {
         	if(elbowUp>elbowDown)//if going down,
         		elbowSpeed *= -0.8;//make sure motor runs in reverse
         }
-        //find which value is highest, and set rumble to that value, use absolute value so method is happy
+        //find which value is highest, and set rumble to that value, use absolute value so rumble method is happy
         Robot.oi.getjoystick().setRumble(RumbleType.kLeftRumble, (float) Math.max(Math.abs(forward), Math.abs(turn)));
         Robot.oi.getjoystick().setRumble(RumbleType.kRightRumble, (float) Math.max(Math.abs(forward), Math.abs(turn)));
         

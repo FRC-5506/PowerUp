@@ -31,36 +31,36 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 		if(gameData!=null) {//if gamedata exists, do auto, if not then its fine, this makes robot code load
 			switch(endPosition) {
 			case 'a':
-				addSequential(new DriveLinear(4, false));
-				addSequential(new Turn(-45, false));
-				addSequential(new DriveLinear(47.37615433949868, false));
-				addSequential(new Turn(45, false));
-				addSequential(new DriveLinear(84.75, false));
+				addSequential(new DriveLinear(4));
+				addSequential(new Turn(-45));
+				addSequential(new DriveLinear(47.37615433949868));
+				addSequential(new Turn(45));
+				addSequential(new DriveLinear(84.75));
 			case 'b':
 				//WPILib doesn't like recursive calls so just copy-paste the call
 				//addSequential(new AutoOne('a', "Yoohoo"));
-				addSequential(new DriveLinear(4, false));
-				addSequential(new Turn(-45, false));
-				addSequential(new DriveLinear(47.37615433949868, false));
-				addSequential(new Turn(45, false));
-				addSequential(new DriveLinear(84.75, false));
+				addSequential(new DriveLinear(4));
+				addSequential(new Turn(-45));
+				addSequential(new DriveLinear(47.37615433949868));
+				addSequential(new Turn(45));
+				addSequential(new DriveLinear(84.75));
 				//end AutoOne(a)
 				
 				if(gameData.charAt(0)=='L') {
-					addSequential(new DriveLinear(85, false));
-					addSequential(new Turn(90, false));
-					addSequential(new DriveLinear(45, false));
-					addParallel(new Curl(30, false));
+					addSequential(new DriveLinear(85));
+					addSequential(new Turn(90));
+					addSequential(new DriveLinear(45));
+					addParallel(new Curl(30));
 					addSequential(new MoveHand(false));
 				} else {
-					addSequential(new DriveLinear(153.75, false));
-					addSequential(new Turn(90, false));
-					addSequential(new DriveLinear(284, false));
-					addSequential(new Turn(90, false));
-					addSequential(new DriveLinear(68.75, false));
-					addSequential(new Turn(90, false));
-					addSequential(new DriveLinear(45, false));
-					addParallel(new Curl(30, false));
+					addSequential(new DriveLinear(153.75));
+					addSequential(new Turn(90));
+					addSequential(new DriveLinear(284));
+					addSequential(new Turn(90));
+					addSequential(new DriveLinear(68.75));
+					addSequential(new Turn(90));
+					addSequential(new DriveLinear(45));
+					addParallel(new Curl(30));
 					addSequential(new MoveHand(false));
 				}
 			//case 'c':
