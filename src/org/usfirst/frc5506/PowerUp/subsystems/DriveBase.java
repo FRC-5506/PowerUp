@@ -78,9 +78,9 @@ public class DriveBase extends Subsystem {
 
     public void driveLinear(boolean forwards) {
     	if(forwards)
-    		direction = -0.5;
-    	else
     		direction = 0.5;
+    	else
+    		direction = -0.5;
     	
     	/*difference = rightRevs.getDistance()-leftRevs.getDistance();//difference of distances
     																//wheels travelled

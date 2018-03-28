@@ -7,9 +7,11 @@ public class AutoBoring extends CommandGroup {
 	public AutoBoring()
 	{
 		//wait
+		System.out.println(Robot.waitTime);
 		setTimeout(Robot.waitTime);
+		new AutoStay();
 		
 		//just drive forward bang bang
-		addSequential(new DriveLinear(500, '1'));//5 seconds
+		addSequential(new DriveLinear(400, '1'));//5 seconds
 	}
 }

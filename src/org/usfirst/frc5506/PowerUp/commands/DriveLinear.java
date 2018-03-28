@@ -22,6 +22,11 @@ import org.usfirst.frc5506.PowerUp.Robot;
 public class DriveLinear extends Command {
 	private char mode;
 	private double drivePercent;
+	private int count;
+    private double aveDist;
+    private double dist;
+    private boolean forward;
+    private double percentDone;
 
     public DriveLinear(double driveDistance, char mode) {
     	dist = driveDistance;
@@ -33,36 +38,40 @@ public class DriveLinear extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	count = 0;
     	if(mode!='0') 
     		dist /= 100;//if going by time, then divide input by 100 TODO: play with value divisor (dividend?) for timed drive
+    	System.out.println(dist);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	switch(mode) {
-    	case '0'://if not based on time, thus based on distance...
-        	if(dist<0)//if we need to go backwards, call backwards driveAuto
-        		forward = false;
-        	else
-        		forward = true;
+    	if(mode=='0') {//distance mode
+    		forward = dist<0 ? false : true;//is dist less than 0? If yes, then forward is false, if no, then forward is true
         	
         	Robot.driveBase.driveLinear(forward);
-        	break;
-    	case '1':
-    		Robot.driveBase.driveLinear(forward);
-    		setTimeout(dist);
-    		break;
-    	case '2'://if not not based on time, then it is based on time, so do time drive command
-    		for(int j=0;j<(100*dist);j++) {//repeat this for 100 times the length of drive (in seconds)
-    			percentDone = j / (100*dist);//get a percentage for how far through the command we are
-    			
-    			drivePercent = Robot.driveBase.driveCurve(percentDone);
-    			SmartDashboard.putNumber("Motors running at: ", drivePercent);
-    			Robot.driveBase.getMotors().arcadeDrive(drivePercent, 0);//run motors at value given by driveCurve, without turning
-    		}
-    	default:
-    		break;
+        	
+        	
+    	} else if(mode=='2') {//temporary time mode, until acceleration curve is working
+    		Robot.driveBase.driveLinear(true);//drive forward
+    		
+    		
+    	} else if(mode=='1') {//timed acceleration curve
+    		count++;
+			percentDone = count / (50*dist);//get a percentage for how far through the command we are
+								  //it's 50*dist, because this will give us how many periods are run in that amount of seconds
+								  //we stop when percentDone==1, and this function gets run once every period,
+								  //so 50periods/second * length of command in seconds (dist) will give us how many periods are run
+								  //before we have reached the time we set, or 100% of the command in periods.
+			
+			drivePercent = Robot.driveBase.driveCurve(percentDone);
+			SmartDashboard.putNumber("Motors running at: ", drivePercent);
+			Robot.driveBase.getMotors().arcadeDrive(drivePercent, 0);//run motors at value given by driveCurve, without turning
+			
+			
+    	} else {
+    		System.out.println("Invalid mode in DriveLinear");
     	}
     }
 
@@ -70,12 +79,14 @@ public class DriveLinear extends Command {
     @Override
     protected boolean isFinished() {
     	switch(mode) {
+    	
     	case '0'://if not  based on time, thus based on distance...
-        	aveDist = ( Robot.driveBase.getLeftRotation().getDistance() + Robot.driveBase.getRightRotation().getDistance() ) / 2;
-        	if(Math.abs(dist)>Math.abs(aveDist))//if the distance that both wheeltrains moved is less than
-        		return false;//the distance needed to travel, keep going
-        	else
-        		return true;//if it's greater than dist, stop
+        	aveDist = ( Robot.driveBase.getLeftRotation().getDistance() + Robot.driveBase.getRightRotation().getDistance() ) / 2;//average is more accurate than one wheel
+        	return Math.abs(aveDist)>=Math.abs(dist);//if we've travelled as far as we're supposed to, return true
+        	
+    	case '1':
+    		return percentDone>=1;//if we're at 100%, then stop the robot
+    		
     	default:
     		return isTimedOut();//if based on time, see if were done
     	}
@@ -92,9 +103,4 @@ public class DriveLinear extends Command {
     @Override
     protected void interrupted() {
     }
-    
-    private double aveDist;
-    private double dist;
-    private boolean forward;
-    private double percentDone;
 }

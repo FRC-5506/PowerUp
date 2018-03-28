@@ -11,7 +11,6 @@ public class TeleopDrive extends Command {
 
 	private double forward;
 	private double turn;
-	
 	Joystick joystick;
 	private double elbowSpeed;
 	private double elbowDown;
@@ -34,10 +33,8 @@ public class TeleopDrive extends Command {
         
         if(driveMode) {
         	turn = 0.8*joystick.getX();
-        	if(joystick.getRawAxis(5)<0)
-        		elbowSpeed = 0.8*joystick.getRawAxis(5);
-        	else
-        		elbowSpeed = 0.85*joystick.getRawAxis(5);
+        	elbowSpeed = joystick.getRawAxis(5)<0 ? 0.8*joystick.getRawAxis(5) : 0.85*joystick.getRawAxis(5);
+        	//is the right stick being pushed up? if yes: 80% speed, if no: 85% speed
         } else {
         	turn = -1*joystick.getRawAxis(5);//make sure this is scaled the same as forward (left side)
         	elbowDown = joystick.getRawAxis(2);//left trigger
@@ -62,6 +59,18 @@ public class TeleopDrive extends Command {
     	
         Robot.driveBase.drive(forward, turn);
     	Robot.elbow.rotateArm(elbowSpeed);
+    	
+    	/*if(Robot.oi.getjoystick().getRawButton(1))
+    		new MoveHand(true);
+    	
+    	if(Robot.oi.getjoystick().getRawButton(2))
+    		new MoveHand(false);
+    	
+    	if(Robot.oi.getjoystick().getRawButton(4))
+    		new MoveArm(true);
+    	
+    	if(Robot.oi.getjoystick().getRawButton(3))
+    		new MoveArm(false);*/
     	
     	SmartDashboard.putNumber("Elbow Encoder", Robot.elbow.getArmPos().getDistance());
 	}

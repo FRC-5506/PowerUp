@@ -39,6 +39,9 @@ public class Robot extends TimedRobot {
     
     SendableChooser<Boolean> arcadeDriveMode = new SendableChooser<>();
     
+    public static char endPosition;
+    SendableChooser<Character> endChooser = new SendableChooser<>();
+    
     //SendableChooser<Double> waitTimeChooser = new SendableChooser<>();
 	public static String gameData;
   //This allows an option for tank or arcade drive to be put on SmartDash
@@ -95,24 +98,21 @@ public class Robot extends TimedRobot {
         //add the chooser to smartdashboard
         SmartDashboard.putData("Drive Mode", arcadeDriveMode);
 
-        waitTime = 0;
+        waitTime = 3;
         SmartDashboard.putNumber("Wait Time", waitTime);
+        
+        //endPosition
+        endChooser.addDefault("Auto Line", 'a');
+        endChooser.addObject("Switch", 'b');
+        //endChooser.addObject("Scale", 'c');
+        SmartDashboard.putData("End Position", endChooser);
         
         // Add commands to Autonomous Sendable Chooser
         chooser.addDefault("Default (Drive forward 5s)", new AutoBoring());
         chooser.addObject("Sit there, do nothing", new AutoStay());
-        
-        //chooser.addObject("1a", new AutoOne('a'));
-        //chooser.addObject("1b", new AutoOne('b'));
-        //chooser.addObject("1c", new AutoOne(c, /*String LRR*/));
-        
-        //chooser.addObject("2a", new AutoTwo('a'));
-        //chooser.addObject("2b", new AutoTwo('b'));
-        //chooser.addObject("2c", new AutoTwo(c, /*String LRR*/));
-        
-        //chooser.addObject("3a", new AutoThree('a'));
-        //chooser.addObject("3b", new AutoThree('b'));
-        //chooser.addObject("3c", new AutoThree(c, /*String LRR*/));
+        //chooser.addObject("Driver Station 1", new AutoOne());
+        //chooser.addObject("Driver Station 2", new AutoTwo());
+        //chooser.addObject("Driver Station 3", new AutoThree());
         
         SmartDashboard.putData("Autonomous Chooser", chooser);
         //Show the auto chooser on smart dashboard
@@ -148,7 +148,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-    	waitTime = SmartDashboard.getNumber("Wait Time", 0);//TODO: Test waitTime
+    	endPosition = endChooser.getSelected();
+    	waitTime = SmartDashboard.getNumber("Wait Time", 0);//TODO: Fix waitTime
         autonomousCommand = chooser.getSelected();
         gameData = DriverStation.getInstance().getGameSpecificMessage();//search once more when auto starts
         // schedule the autonomous command (example)

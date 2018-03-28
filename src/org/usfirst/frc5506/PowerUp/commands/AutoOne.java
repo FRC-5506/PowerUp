@@ -22,7 +22,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 	
 	private double waitTime;
 	
-	public AutoOne(char endPosition) {
+	public AutoOne() {
+		this.endPosition = Robot.endPosition;
 		this.waitTime = Robot.waitTime;
 		
 		setTimeout(waitTime);
@@ -49,8 +50,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 				if(gameData.charAt(0)=='L') {
 					addSequential(new DriveLinear(85));
 					addSequential(new Turn(90));
-					addSequential(new DriveLinear(45));
 					addParallel(new Curl(30));
+					addSequential(new DriveLinear(45));
 					addSequential(new MoveHand(false));
 				} else {
 					addSequential(new DriveLinear(153.75));
@@ -59,8 +60,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 					addSequential(new Turn(90));
 					addSequential(new DriveLinear(68.75));
 					addSequential(new Turn(90));
-					addSequential(new DriveLinear(45));
 					addParallel(new Curl(30));
+					addSequential(new DriveLinear(45));
 					addSequential(new MoveHand(false));
 				}
 			//case 'c':
