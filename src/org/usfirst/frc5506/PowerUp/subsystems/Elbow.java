@@ -47,7 +47,7 @@ public class Elbow extends Subsystem {
     public void rotateArm(double joyAngle) {
     	if(!(Math.abs(joyAngle)<.10))//if joystick is in center, don't get a new value
         	oneDvector = joyAngle;//get a new value
-        	else
+        else
         	oneDvector = 0;//if a new value isn't taken, i.e. joystick is centered, the
         					//percentage becomes 0
     	

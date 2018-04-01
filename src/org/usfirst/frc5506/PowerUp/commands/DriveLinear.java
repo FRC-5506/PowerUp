@@ -12,8 +12,6 @@
 
 package org.usfirst.frc5506.PowerUp.commands;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc5506.PowerUp.Robot;
 
 /**
@@ -38,23 +36,24 @@ public class DriveLinear extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	drivePercent = 0;
     	count = 0;
     	if(mode!='0') 
     		dist /= 100;//if going by time, then divide input by 100 TODO: play with value divisor (dividend?) for timed drive
-    	System.out.println(dist);
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
     	if(mode=='0') {//distance mode
+    		//aveDist = (Robot.driveBase.getLeftRotation().getDistance()+Robot.driveBase.getRightRotation().getDistance())/2;
     		forward = dist<0 ? false : true;//is dist less than 0? If yes, then forward is false, if no, then forward is true
         	
-        	Robot.driveBase.driveLinear(forward);
+        	Robot.driveBase.driveLinear(forward/*, aveDist/dist*/);//distance travelled over total distance is percentage done
         	
         	
     	} else if(mode=='2') {//temporary time mode, until acceleration curve is working
-    		Robot.driveBase.driveLinear(true);//drive forward
+    		Robot.driveBase.driveLinear(true/*, 0.5*/);//drive forward, 50% done, always runs at top speed DONT USE THIS DUDE
     		
     		
     	} else if(mode=='1') {//timed acceleration curve
@@ -66,9 +65,9 @@ public class DriveLinear extends Command {
 								  //before we have reached the time we set, or 100% of the command in periods.
 			
 			drivePercent = Robot.driveBase.driveCurve(percentDone);
-			SmartDashboard.putNumber("Motors running at: ", drivePercent);
+			//SmartDashboard.putNumber("Motors running at: ", drivePercent);
 			Robot.driveBase.getMotors().arcadeDrive(drivePercent, 0);//run motors at value given by driveCurve, without turning
-			
+							//use getMotors().arcadeDrive(), not drive(), because drive() could run in tank mode
 			
     	} else {
     		System.out.println("Invalid mode in DriveLinear");

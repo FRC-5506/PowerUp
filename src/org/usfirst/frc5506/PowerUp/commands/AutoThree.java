@@ -14,22 +14,43 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc5506.PowerUp.*;
 
 /**
- *    There's actually no special methods or robotbuilder stuff for CommandGroup,
- *    You just add in a bunch of addSequential()s and addParallel()s for your routine
- *    until the routine is finished. Nice, right? -DM
+ * In a command group, you can run many sequenced commands. To do so, use addSequential(Command command) methods or
+ * addParallel(Command command). An addParallel will run at the same time as the command beneath it.
  **/
-/*public class AutoThree extends CommandGroup {
+public class AutoThree extends CommandGroup {
 	
-	private double waitTime;
+	private char endPosition;
 	
 	public AutoThree() {
 		this.endPosition = Robot.endPosition;
-		this.waitTime = Robot.waitTime;
-		setTimeout(waitTime);
+		
+		addSequential(new Wait(Robot.waitTime));
 		
 		String gameData = Robot.gameData;
-		if(gameData!=null) {//if gameData exists, do auto
-			switch(endPosition) {
+		if(gameData!=null&&endPosition=='b') {//if gameData exists, do auto			
+			if(Robot.gameData.charAt(0)=='R') {
+				addSequential(new DriveLinear(132, '0'));//0 is based on encoders
+
+				addSequential(new Turn(-90, false));
+				addSequential(new DriveLinear(300, '1'));//timed drive forward so if we hit switch early its okay
+				addSequential(new MoveHand(false));
+			} else {
+				addSequential(new DriveLinear(6, '0'));
+				addSequential(new Turn(-56.8, false));
+				addSequential(new DriveLinear(245, '0'));
+				addSequential(new Turn(56.8, false));
+				addSequential(new DriveLinear(300, '1'));
+				addSequential(new MoveHand(false));
+				
+			}
+		}/* else if(endPosition=='c'&&gameData!=null) {
+			if(gameData.charAt(1)=='R') {
+				addSequential(new DriveLinear(6, '0'));
+				addSequential(new )
+			}
+		}*/
+			
+			/*switch(endPosition) {
 			case 'a'://L == R for a
 				addSequential(new DriveLinear(4));
 				addSequential(new Turn(45));
@@ -67,7 +88,7 @@ import org.usfirst.frc5506.PowerUp.*;
 					addSequential(new MoveHand(true));
 					break;
 				}
-			}
-		}
+			}*/
+		
 	}
-}*/
+}

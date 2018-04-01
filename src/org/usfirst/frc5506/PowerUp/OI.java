@@ -66,8 +66,8 @@ public class OI {
         //make button objects -- bind a joystick's input to a code object
         Button openHand = new JoystickButton(joystick, 3); //B
         Button closeHand = new JoystickButton(joystick, 1); //A
-        Button retractArm = new JoystickButton(joystick, 2); //X
-        Button extendArm = new JoystickButton(joystick, 4); //Y I have no ideas if thes are really right button names but whatef
+        Button retractArm = new JoystickButton(joystick, 4); //X
+        Button extendArm = new JoystickButton(joystick, 2); //Y I have no ideas if thes are really right button names but whatef
       
         openHand.whenPressed(new MoveHand(false));
         

@@ -14,23 +14,24 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc5506.PowerUp.*;
 
 /**
- *    There's actually no special methods or robotbuilder stuff for CommandGroup,
- *    You just add in a bunch of addSequential()s and addParallel()s for your routine
- *    until the routine is finished. Nice, right? -DM
+ * In a command group, you can run many sequenced commands. To do so, use addSequential(Command command) methods or
+ * addParallel(Command command). An addParallel will run at the same time as the command beneath it.
  **/
-/*public class AutoTwo extends CommandGroup {
+public class AutoTwo extends CommandGroup {
 	
 	private double waitTime;
+	private char endPosition;
 	
 	public AutoTwo() {
 		this.endPosition = Robot.endPosition;
 		this.waitTime = Robot.waitTime;
-		setTimeout(waitTime);
+		
+		addSequential(new Wait(waitTime));
 		
 		String gameData = Robot.gameData;
 		if(gameData!=null) {//if gameData exists, do the command, if not then just sit there
 			switch(endPosition) {
-			case 'a'://L==R for a
+			/*case 'a'://L==R for a
 				addSequential(new DriveLinear(4));
 				addSequential(new Turn(90));
 				addSequential(new DriveLinear(72));
@@ -38,10 +39,11 @@ import org.usfirst.frc5506.PowerUp.*;
 				addSequential(new DriveLinear(47.376154));
 				addSequential(new Turn(-45));
 				addSequential(new DriveLinear(84.75));
-				break;
+				break;*/
 				
 			case 'b':
-				//addSequential(new AutoTwo('a', "Hi"));
+				
+				/*//addSequential(new AutoTwo('a', "Hi"));
 				addSequential(new DriveLinear(4));
 				addSequential(new Turn(90));
 				addSequential(new DriveLinear(72));
@@ -72,8 +74,8 @@ import org.usfirst.frc5506.PowerUp.*;
 					//Same time as above command, run the command below
 					addSequential(new MoveHand(true));
 					//end AutoThree('b', "L")
-				}
+				}*/
 			}
 		}
 	}
-}*/
+}

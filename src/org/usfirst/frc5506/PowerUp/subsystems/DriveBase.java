@@ -17,6 +17,7 @@ import org.usfirst.frc5506.PowerUp.commands.TeleopDrive;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -25,13 +26,13 @@ public class DriveBase extends Subsystem {
     
 	private static final double TOP_SPEED = 0.75;
 	private static final double ACCELERATION_ZONE = 0.25;
-    private double direction;
     private double correction;
     private double difference;
     //private final static PowerDistributionPanel pdp = RobotMap.pdp;
 	private final Encoder leftRevs = RobotMap.leftRevs;
     private final Encoder rightRevs = RobotMap.rightRevs;
     private final DifferentialDrive drive = RobotMap.drive;
+	private double vector;//because a vector has both magnitude and direction
     
     @Override
     public void initDefaultCommand() {
@@ -43,20 +44,14 @@ public class DriveBase extends Subsystem {
     @Override
     public void periodic() {
         // Put code here to be run every loop
+    	SmartDashboard.putNumber("Speedometer", (getLeftRotation().getRate()+getRightRotation().getRate())/2);
     }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public void drive(double forwardLeft, double turnRight) {
-        //deadband
-        if(Math.abs(forwardLeft) < .10)
-        forwardLeft = 0;
-        
-        if(Math.abs(turnRight)<.10)
-        	turnRight = 0;
-        
         if(Robot.driveMode)//if arcadeDrive is selected on smartdash
-        drive.arcadeDrive(forwardLeft, turnRight);//arcade drive
+        	drive.arcadeDrive(forwardLeft, turnRight);//arcade drive
         
         else {//if tank drive selected
         	drive.tankDrive(forwardLeft, turnRight);//tank drive
@@ -76,11 +71,8 @@ public class DriveBase extends Subsystem {
     	rightRevs.reset();
     }
 
-    public void driveLinear(boolean forwards) {
-    	if(forwards)
-    		direction = 0.5;
-    	else
-    		direction = -0.5;
+    public void driveLinear(boolean forwards/*, double percentDone*/) {
+    	vector = forwards ? 0.65/*driveCurve(percentDone) */: -0.65/*driveCurve(percentDone)*/;
     	
     	/*difference = rightRevs.getDistance()-leftRevs.getDistance();//difference of distances
     																//wheels travelled
@@ -90,7 +82,7 @@ public class DriveBase extends Subsystem {
     	else
     		correction = 0;*/
     	
-    	drive.arcadeDrive(direction, /*(correction/20)*/0);//play with this number -- imprecise
+    	drive.arcadeDrive(vector, /*(correction/20)*/0);//play with this number -- imprecise
     								//if it gets off by more than half an inch, turn at 5%
     }
     
@@ -106,10 +98,10 @@ public class DriveBase extends Subsystem {
      * This takes in how far through your drive command you are, and returns what percentage your motors
      * should run at so that you have a smooth acceleration and deceleration curve.
      * 
-     * @param percentDone
+     * @param percentDone = Amount you've completed drive function as a percent
      * @return The percentage the motors should run at through a drive function
      */
-    public double driveCurve(double percentDone) {
+    public double driveCurve(double percentDone) {//curve according to formula y= TOP_SPEED * x^2 / ACCELZONE^2, and remains at max speed in middle of drive function
     	if(percentDone<ACCELERATION_ZONE)//if were supposed to be accelerating up
     		return (TOP_SPEED*percentDone*percentDone) / ( ACCELERATION_ZONE * ACCELERATION_ZONE );//return value of formula for first 25%
     	else if(percentDone>(1-ACCELERATION_ZONE))//if were supposed to be slowing down (distance of accelerationZone, but moving backwards from 1, not forwards from 0

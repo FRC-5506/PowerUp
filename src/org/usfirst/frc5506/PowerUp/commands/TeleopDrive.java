@@ -54,8 +54,16 @@ public class TeleopDrive extends Command {
         if( !(Robot.elbow.getForeLS().get()) && (elbowSpeed>0) )//front limit switch triggered, and trying to push down
     		elbowSpeed = 0;								//stop the motor!
     	
-    	if( !(Robot.elbow.getRearLS().get()) && (elbowSpeed<0) )//rear limit switch triggered, and trying to push up
-    		elbowSpeed = 0;							 // then stop the motor!
+        //commented because zip tie wasn't calibrated, and it takes too long to do that and gas shocks do it anyway
+    	//if( !(Robot.elbow.getRearLS().get()) && (elbowSpeed<0) )//rear limit switch triggered, and trying to push up
+    	//	elbowSpeed = 0;							 // then stop the motor!
+    	
+        //deadband
+        if(Math.abs(forward) < .10)
+        	forward = 0;
+        
+        if(Math.abs(turn)<.10)
+        	turn = 0;
     	
         Robot.driveBase.drive(forward, turn);
     	Robot.elbow.rotateArm(elbowSpeed);
@@ -70,7 +78,7 @@ public class TeleopDrive extends Command {
     		new MoveArm(true);
     	
     	if(Robot.oi.getjoystick().getRawButton(3))
-    		new MoveArm(false);*/
+    		new MoveArm(false);*///Was going to try this code for pneumatics but then it was PCM issue
     	
     	SmartDashboard.putNumber("Elbow Encoder", Robot.elbow.getArmPos().getDistance());
 	}

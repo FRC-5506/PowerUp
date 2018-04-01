@@ -18,7 +18,8 @@ import org.usfirst.frc5506.PowerUp.Robot;
  **/
 public class Curl extends Command {
 
-    private double elbowSpeed;
+    private static final double FORTY_PERCENT_SPEED = 101/3.63;//111 deg per 3.63s
+	private double elbowSpeed;
 	private boolean timed;
 	private double time;
 
@@ -26,8 +27,6 @@ public class Curl extends Command {
         this.liftDegrees = liftDegrees;
         this.timed = timed;
         
-        if(timed)
-        	time = liftDegrees/90; //TODO make the dividend (divisor?) smaller so that it works
         //Encoder, make sure that 0 is when arm is parallel to floor
         requires(Robot.elbow);
     }
@@ -35,13 +34,17 @@ public class Curl extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+    	System.out.println("CURL INITIALIZED, timed="+timed);
+    	if(timed)
+        	time = liftDegrees/FORTY_PERCENT_SPEED;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        //limit switches are here in auto
-    	elbowSpeed = (liftDegrees/Math.abs(liftDegrees))*0.3;//get the sign of liftDegrees, find out which way you're going, then move at 30% power
+        //limit switches are here in auto              //theres a negative here because negative is up, but we want positive up in auto commands
+    	elbowSpeed = (liftDegrees/Math.abs(liftDegrees))*-0.4;//get the sign of liftDegrees, find out which way you're going, then move at 30% power
+    	System.out.println("elbowSpeed after instantiation: "+elbowSpeed);
     	
         if( !(Robot.elbow.getForeLS().get()) && (elbowSpeed>0) )//front limit switch triggered, and trying to push down
     		elbowSpeed = 0;								//stop the motor!
@@ -49,24 +52,22 @@ public class Curl extends Command {
     	if( !(Robot.elbow.getRearLS().get()) && (elbowSpeed<0) )//rear limit switch triggered, and trying to push up
     		elbowSpeed = 0;							 // then stop the motor!
     	
-    	if(liftDegrees<Robot.elbow.getArmPos().getDistance()) {
-    		Robot.elbow.rotateArm(elbowSpeed);
-    		if(timed)
-    			setTimeout(time);
-    	} else {
-    		Robot.elbow.rotateArm(elbowSpeed);//play with this number for speed
-    		if(timed)
-    			setTimeout(time);
-    	}
+    	System.out.println("elbowSpeed before rotateArm: "+elbowSpeed);
+    	Robot.elbow.rotateArm(elbowSpeed);//if not timed, just run it and isFinished will stop it
+    	if(timed)//if it is timed, say how long it should run
+    		setTimeout(time);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	if(liftDegrees+2>Robot.elbow.getArmPos().getDistance()&&liftDegrees-2<Robot.elbow.getArmPos().getDistance())//if distance needed to rotate
-    		return true;                                 //is greater than distance rotated
-    	else                                             //stop rotating
-            return false;
+    	System.out.println("isFinished ran");
+    	if(!timed)
+    		return (liftDegrees+2>Robot.elbow.getArmPos().getDistance()&&liftDegrees-2<Robot.elbow.getArmPos().getDistance());//if distance needed to rotate
+		else //is greater than distance rotated
+    		return isTimedOut();
+    	
+    	
     }
 
     // Called once after isFinished returns true

@@ -14,23 +14,47 @@ import org.usfirst.frc5506.PowerUp.Robot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *    There's actually no special methods or robotbuilder stuff for CommandGroup,
- *    You just add in a bunch of addSequential()s and addParallel()s for your routine
- *    until the routine is finished. Nice, right? -DM
+ * In a command group, you can run many sequenced commands. To do so, use addSequential(Command command) methods or
+ * addParallel(Command command). An addParallel will run at the same time as the command beneath it.
  **/
-/*public class AutoOne extends CommandGroup {
+public class AutoOne extends CommandGroup {
 	
 	private double waitTime;
+	private char endPosition;
 	
 	public AutoOne() {
 		this.endPosition = Robot.endPosition;
 		this.waitTime = Robot.waitTime;
 		
-		setTimeout(waitTime);
+		addSequential(new Wait(waitTime));
 		
 		String gameData = Robot.gameData;
 		if(gameData!=null) {//if gamedata exists, do auto, if not then its fine, this makes robot code load
 			switch(endPosition) {
+			case 'b':
+				if(gameData.charAt(0)=='L'&&endPosition=='b') {
+					addSequential(new DriveLinear(132, '0'));
+					addSequential(new Turn(90, false));
+					addSequential(new MoveHand(false));
+				} else {
+					addSequential(new DriveLinear(6, '0'));
+					addSequential(new Turn(56.8, false));
+					addSequential(new DriveLinear(245, '0'));
+					addSequential(new Turn(-56.8, false));
+					addSequential(new DriveLinear(300, '1'));
+					addSequential(new MoveHand(false));
+				}
+				break;
+				
+			case 'c':
+				if(gameData.charAt(1)=='L') {//near side
+					//home side
+				} else {//far side
+					
+				}
+			}
+			
+			/*switch(endPosition) {
 			case 'a':
 				addSequential(new DriveLinear(4));
 				addSequential(new Turn(-45));
@@ -66,7 +90,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 				}
 			//case 'c':
 				//SOON
-			}
+			}*/
 		}
 	}
-}*/
+}
